@@ -21,5 +21,9 @@ router.route('/posts/:postId/comments/:commentId')
   .put(comments.updateComment)
   .delete(comments.removeComment);
 
+router.all('*', (req, res) => {
+  res.status(404);
+  res.send('error: not found');
+});
 
 module.exports = router;

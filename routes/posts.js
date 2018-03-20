@@ -8,6 +8,9 @@ module.exports = {
   },
   addPost(req, res) {
     const id = store.posts.length;
+    if(!req.body.name.trim() || !req.body.url.trim() || !req.body.text.trim()) {
+      return res.sendStatus(400);
+    }
     const newPost = Object.assign(
       {
         name: req.body.name || null,
@@ -18,10 +21,13 @@ module.exports = {
     );
     store.posts.push(newPost);
     res.status(201);
-    res.send({id})
+    res.send({id});
   },
   updatePost(req, res) {
     const id = req.params.postId;
+    if(!req.body.name.trim() || !req.body.url.trim() || !req.body.text.trim()) {
+      return res.sendStatus(400);
+    }
     const updatedPost = Object.assign(
       {},
       store.posts[id],
